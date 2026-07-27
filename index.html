@@ -4,20 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>José Cutire Huayta</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1a1a2e">
+    <!-- ✅ RUTA CORREGIDA: CARPETA EN MINÚSCULAS "jc" -->
+    <link rel="manifest" href="https://radiosunidas.github.io/jc/manifest.json">
+    <meta name="theme-color" content="#ffcc66">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="José Cutire">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
-        /* PANTALLA DE CARGA */
         .carga{position:fixed;inset:0;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s;}
         .circulo{width:80px;height:80px;border:4px solid #ffcc66;border-top:transparent;border-radius:50%;animation:vuelta 1s linear infinite;}
         @keyframes vuelta{100%{transform:rotate(360deg);}}
         .texto-carga{color:#ffdd99;margin-top:20px;font-size:1.2rem;font-weight:bold;}
         .oculto{opacity:0;pointer-events:none;}
 
-        /* FONDO Y TEXTOS */
-        body{background:#22223b;color:#ffffff;line-height:1.7;padding:15px;padding-bottom:90px;max-width:900px;margin:0 auto;}
+        .barra-menu{background:rgba(26,26,46,0.95);border-bottom:1px solid rgba(255,255,255,0.2);padding:10px 15px;position:sticky;top:0;z-index:999;}
+        .btn-menu{background:#ffcc66;color:#1a1a2e;border:none;padding:10px 18px;border-radius:6px;font-weight:bold;cursor:pointer;font-size:1rem;}
+        .opciones-menu{display:none;flex-direction:column;margin-top:10px;background:rgba(34,34,59,0.98);border-radius:8px;overflow:hidden;}
+        .opciones-menu.activo{display:flex;}
+        .opciones-menu a{color:#ffcc66;padding:10px 18px;text-decoration:none;border-bottom:1px solid rgba(255,204,102,0.15);transition:.2s;}
+        .opciones-menu a:hover{background:rgba(255,204,102,0.15);padding-left:22px;}
+
+        body{background:#22223b;color:#ffffff;line-height:1.7;padding-bottom:130px;max-width:900px;margin:0 auto;}
         header{text-align:center;padding:25px 20px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);border-radius:12px;margin-bottom:25px;}
         .foto-perfil{width:150px;height:150px;border-radius:50%;border:3px solid #ffcc66;object-fit:cover;margin-bottom:15px;}
         h1{color:#ffcc66;font-size:2rem;margin-bottom:5px;}
@@ -27,44 +36,59 @@
         .filas{display:grid;grid-template-columns:1fr;gap:18px;}
         @media(min-width:600px){.filas{grid-template-columns:1fr 1fr;}}
 
-        /* BOTONES CON EFECTO */
-        .boton{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;margin:8px;text-decoration:none;border:none;border-radius:8px;color:#1a1a2e;font-weight:bold;cursor:pointer;transition:all 0.3s ease;transform:scale(1);box-shadow:0 0 0 transparent;}
-        .boton:hover{transform:scale(1.08);box-shadow:0 0 15px rgba(255,204,102,0.5);}
-        .pdf{background:#ffcc66;}
+        .boton{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;margin:8px;text-decoration:none;border:none;border-radius:8px;color:#ffffff;font-weight:bold;cursor:pointer;transition:all 0.3s ease;transform:scale(1);box-shadow:0 0 0 transparent;}
+        .boton:hover{transform:scale(1.08);box-shadow:0 0 15px rgba(255,255,255,0.3);}
+        .pdf{background:#ffcc66;color:#1a1a2e;}
         .pdf:hover{background:#ffdd99;}
-        .yape{background:#25d366;color:#fff;}
-        .yape:hover{background:#20bd5a;}
-        .paypal{background:#ffc439;color:#1a1a2e;}
-        .paypal:hover{background:#ffd966;}
-        .wsp{background:#128c7e;color:#fff;}
-        .wsp:hover{background:#075e54;}
+        .wsp{background:#25d366;}
+        .wsp:hover{background:#20bd5a;}
+        .yape{background:#93278f;}
+        .yape:hover{background:#7a2077;}
+        .paypal{background:#009cde;}
+        .paypal:hover{background:#007bb5;}
         .enlaces a{display:block;padding:9px 0;color:#ffcc66;text-decoration:none;border-bottom:1px solid rgba(255,204,102,0.2);transition:.2s;}
         .enlaces a:hover{color:#ffdd99;padding-left:6px;}
-        footer{text-align:center;margin-top:35px;padding:15px;color:#aaaaaa;}
 
-        /* VENTANAS IGUALES: YAPE Y PAYPAL */
-        .ventana-apoyo{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:10000;}
-        .ventana-apoyo.activa{display:flex;}
-        .cuadro-apoyo{background:#22223b;border:1px solid rgba(255,255,255,0.3);padding:25px;border-radius:12px;text-align:center;max-width:320px;}
-        .cuadro-apoyo img{width:200px;height:200px;margin:15px auto;border-radius:8px;}
-        .cuadro-apoyo h3{color:#ffcc66;margin-bottom:10px;}
-        .cuadro-apoyo p{margin-bottom:15px;}
-        .btn-accion{background:#ffcc66;color:#1a1a2e;border:none;padding:8px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin:5px;}
+        /* ✅ PIE DE PÁGINA COMPLETO */
+        .pie-pagina{position:fixed;bottom:0;left:0;width:100%;background:rgba(26,26,46,0.98);border-top:2px solid #ffcc66;padding:15px;text-align:center;color:#ffcc66;font-weight:bold;z-index:999;}
+
+        #pwa-banner{position:fixed;bottom:70px;left:0;width:100%;background:linear-gradient(135deg,#1a1a2e,#16213e);color:#ffcc66;padding:15px 20px;text-align:center;font-weight:bold;box-shadow:0 -3px 15px rgba(0,0,0,0.6);z-index:998;display:none;flex-direction:column;gap:10px;}
+        #pwa-banner.activo{display:flex;}
+        .botones-inst{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;}
+        .btn-si{background:#ffcc66;color:#1a1a2e;border:none;padding:8px 20px;border-radius:6px;font-weight:bold;cursor:pointer;}
+        .btn-no{background:transparent;border:1px solid #ffcc66;color:#ffcc66;padding:8px 20px;border-radius:6px;cursor:pointer;}
+
+        /* ✅ CUADROS DEFINIDOS EN COLABORACIONES */
+        .ventana-apoyo, .ventana-foto{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:10000;}
+        .ventana-apoyo.activa, .ventana-foto.activa{display:flex;}
+        .cuadro-apoyo, .cuadro-foto{background:#22223b;border:2px solid #ffcc66;padding:25px;border-radius:12px;text-align:center;max-width:380px;box-shadow:0 0 20px rgba(255,204,102,0.3);}
+        .cuadro-foto img{max-width:100%;max-height:75vh;border-radius:8px;}
+        .cuadro-apoyo img{width:200px;height:200px;margin:15px auto;border-radius:8px;border:1px solid #ffcc66;}
+        .cuadro-apoyo h3, .cuadro-foto h3{color:#ffcc66;margin-bottom:12px;}
+        .campo{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:#fff;}
+        .campo::placeholder{color:#cccccc;}
+        .btn-accion{background:#ffcc66;color:#1a1a2e;border:none;padding:10px 24px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:8px;transition:.2s;}
         .btn-accion:hover{background:#ffdd99;}
-        .cerrar{background:transparent;border:1px solid #ffcc66;color:#ffcc66;padding:8px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;}
+        .cerrar{background:transparent;border:1px solid #ffffff;color:#ffffff;padding:8px 20px;border-radius:6px;font-weight:bold;cursor:pointer;margin-top:10px;}
+        .cerrar:hover{background:rgba(255,255,255,0.1);}
 
-        /* CHAT VERDE */
-        .btn-chat{position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;color:#ffffff;cursor:pointer;box-shadow:0 0 12px rgba(37,211,102,0.4);border:2px solid rgba(255,255,255,0.3);}
-        .ventana-chat{position:fixed;bottom:90px;right:20px;width:320px;max-width:90%;background:#1e3a2f;border:1px solid rgba(37,211,102,0.4);border-radius:12px;display:none;flex-direction:column;overflow:hidden;}
+        .galeria{display:grid;grid-template-columns:repeat(auto-fill, minmax(110px, 1fr));gap:12px;margin-top:15px;}
+        .miniatura{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:.2s;}
+        .miniatura:hover{border-color:#ffcc66;transform:scale(1.05);}
+
+        .btn-chat{position:fixed;bottom:80px;right:20px;width:65px;height:65px;background:#ffcc66;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:#1a1a2e;cursor:pointer;box-shadow:0 0 18px rgba(255,204,102,0.6);border:3px solid #ffffff;transition:.2s;z-index:9997;}
+        .btn-chat:hover{transform:scale(1.1);box-shadow:0 0 22px rgba(255,204,102,0.8);}
+        .ventana-chat{position:fixed;bottom:150px;right:20px;width:340px;max-width:92%;background:#f8f9fa;border:2px solid #ffcc66;border-radius:12px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 0 20px rgba(0,0,0,0.4);z-index:9997;}
         .ventana-chat.activa{display:flex;}
-        .cab-chat{background:#25d366;color:#ffffff;padding:12px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;}
-        .caja-msj{flex:1;padding:10px;overflow-y:auto;background:#243b33;min-height:180px;max-height:250px;}
+        .cab-chat{background:#ffcc66;color:#1a1a2e;padding:12px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;}
+        .cerrar-chat{background:transparent;border:none;color:#ffffff;font-size:22px;font-weight:bold;cursor:pointer;}
+        .caja-msj{flex:1;padding:12px;overflow-y:auto;background:#ffffff;min-height:200px;max-height:280px;}
         .mensaje{margin:6px 0;padding:8px 12px;border-radius:15px;max-width:85%;font-size:.9rem;}
         .mio{background:#ffcc66;color:#1a1a2e;margin-left:auto;}
-        .sistema{background:rgba(255,255,255,0.15);color:#ffffff;margin-right:auto;}
-        .escribir{display:flex;border-top:1px solid #25d366;}
-        .escribir input{flex:1;padding:10px;border:none;outline:none;font-size:.9rem;background:#2d443c;color:#ffffff;}
-        .escribir button{background:#25d366;color:#ffffff;border:none;padding:0 15px;cursor:pointer;font-weight:bold;}
+        .asistente{background:#e9ecef;color:#333;margin-right:auto;border-left:3px solid #ffcc66;}
+        .escribir{display:flex;border-top:1px solid #ffcc66;background:#fff;}
+        .escribir input{flex:1;padding:10px;border:none;outline:none;font-size:.9rem;background:#f8f9fa;color:#333;}
+        .escribir button{background:#ffcc66;color:#1a1a2e;border:none;padding:0 15px;cursor:pointer;font-weight:bold;}
     </style>
 </head>
 <body>
@@ -73,7 +97,19 @@
     <div class="texto-carga">Preparando tu perfil...</div>
 </div>
 
-<header>
+<div class="barra-menu">
+    <button class="btn-menu" onclick="document.getElementById('menu').classList.toggle('activo')">☰ MENÚ</button>
+    <div class="opciones-menu" id="menu">
+        <a href="#inicio">🏠 Inicio</a>
+        <a href="#datos">👤 Datos Personales</a>
+        <a href="#experiencia">💼 Experiencia</a>
+        <a href="#servicios">🛠️ Servicios</a>
+        <a href="#galeria">🖼️ Galería</a>
+        <a href="#contacto">📞 Contacto</a>
+    </div>
+</div>
+
+<header id="inicio">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEim6DetltzM7TcKLMUxPPCx8X3IMFTtWwtbR29A8N-oOFjOpfsi8aonadK8iCmehCMgDup5JkFe0z4wY6E51fLPpMG0eszhpV9rusWoIUW19SbTB5WPhsCEL5xRDBV9UuwaQSvqcbUypCK1PmUZKU2Y7NOxpF-J026V0uSndvvuD4ZiWwobDImUDW_NTUY/s960/josecutire.jpg" alt="José Cutire Huayta" class="foto-perfil">
     <h1>JOSÉ CUTIRE HUAYTA</h1>
     <p class="datos">Administrador de Empresas | Técnico en Sistemas</p>
@@ -81,12 +117,24 @@
     <p class="datos">📍 Sicuani - Cusco / Arequipa - La Joya</p>
 </header>
 
-<section class="caja">
+<section class="caja" id="datos">
     <h2>📌 Perfil Profesional</h2>
-    <p>Profesional con más de 8 años de experiencia en gestión, tecnología, producción radial y construcción. Responsable y comprometido con cada trabajo.</p>
+    <p>Profesional responsable, con sólida formación en administración y tecnología. Cuento con más de 8 años de experiencia en gestión, proyectos radiales, diseño web y trabajos de construcción civil. Siempre comprometido con la calidad y puntualidad en cada trabajo.</p>
 </section>
 
-<div class="filas">
+<section class="caja" id="experiencia">
+    <h2>💼 Experiencia Laboral</h2>
+    <ul style="padding-left:22px;">
+        <li>✅ Gestión y administración de proyectos</li>
+        <li>✅ Producción y locución radial</li>
+        <li>✅ Diseño y desarrollo de páginas web y aplicaciones</li>
+        <li>✅ Transmisión y gestión de streaming</li>
+        <li>✅ Trabajos de construcción y ayudantía civil</li>
+        <li>✅ Coordinación de Radios Unidas y Eco Radio</li>
+    </ul>
+</section>
+
+<div class="filas" id="servicios">
     <div class="caja">
         <h2>🛠️ Servicios</h2>
         <ul style="padding-left:22px;">
@@ -106,7 +154,19 @@
     </div>
 </div>
 
-<section style="text-align:center;margin-top:25px;">
+<section class="caja" id="galeria">
+    <h2>🖼️ Galería de Imágenes</h2>
+    <div class="galeria">
+        <img src="imagen/foto01.jpg" alt="Imagen 1" class="miniatura" onclick="verFoto(this.src)">
+        <img src="imagen/foto02.jpg" alt="Imagen 2" class="miniatura" onclick="verFoto(this.src)">
+        <img src="imagen/foto03.jpg" alt="Imagen 3" class="miniatura" onclick="verFoto(this.src)">
+        <img src="imagen/foto04.jpg" alt="Imagen 4" class="miniatura" onclick="verFoto(this.src)">
+        <img src="imagen/foto05.jpg" alt="Imagen 5" class="miniatura" onclick="verFoto(this.src)">
+        <img src="imagen/foto06.jpg" alt="Imagen 6" class="miniatura" onclick="verFoto(this.src)">
+    </div>
+</section>
+
+<section style="text-align:center;margin-top:25px;" id="contacto">
     <h2>📄 Contacto y Apoyo</h2>
     <a href="https://drive.google.com/file/d/1FMJWt_IqtKS1wfUtEvgGS9weq2ofJYKQ/view?usp=drive_link" target="_blank" class="boton pdf">⬇️ DESCARGAR PERFIL</a>
     <br><br>
@@ -114,32 +174,41 @@
     <button class="boton yape" onclick="document.getElementById('ventanaYape').classList.add('activa')">💳 YAPE</button>
     <button class="boton paypal" onclick="document.getElementById('ventanaPaypal').classList.add('activa')">💙 PAYPAL</button>
     <br><br>
-    <button id="btnApp" class="boton" style="background:#ffcc66;color:#1a1a2e;display:none;">📲 INSTALAR APP</button>
+    <button id="btnApp" class="boton" style="background:#ffcc66;color:#1a1a2e;display:none;">📲 INSTALAR APLICACIÓN</button>
 </section>
 
-<footer>© 2026 José Cutire Huayta</footer>
+<!-- ✅ PIE DE PÁGINA CON DERECHOS RESERVADOS -->
+<div class="pie-pagina">
+    © TODOS LOS DERECHOS RESERVADOS | JOSÉ CUTIRE HUAYTA
+</div>
 
-<!-- ✅ VENTANA YAPE -->
+<div id="pwa-banner">
+    <div>¿Te gusta la página? ¿Quieres instalarla como aplicación en tu celular o computadora?</div>
+    <div class="botones-inst">
+        <button class="btn-si" id="btnInstalar">✅ SÍ, INSTALAR</button>
+        <button class="btn-no" onclick="document.getElementById('pwa-banner').classList.remove('activo')">❌ NO, GRACIAS</button>
+    </div>
+</div>
+
 <div class="ventana-apoyo" id="ventanaYape">
     <div class="cuadro-apoyo">
         <h3>Colaborar por Yape</h3>
         <p>📱 Número: +51 930 282 895</p>
-        <img src="https://imgur.com/fowm65p.png" alt="QR Yape">
+        <img src="imganen/qryape.png" alt="QR Yape">
         <br>
         <button class="cerrar" onclick="document.getElementById('ventanaYape').classList.remove('activa')">Cerrar</button>
     </div>
 </div>
 
-<!-- ✅ VENTANA PAYPAL IGUAL A YAPE -->
 <div class="ventana-apoyo" id="ventanaPaypal">
     <div class="cuadro-apoyo">
         <h3>Colaborar por PayPal</h3>
-        <p>💸 Donaciones en dolares (USD)</p>
-        <p>Tu apoyo ayuda a mantener los proyectos activos.</p>
+        <p>💸 Donaciones en Dólares (USD)</p>
         <form action="https://www.paypal.com/donate" method="post" target="_blank">
             <input type="hidden" name="business" value="fielangelo@gmail.com">
             <input type="hidden" name="item_name" value="Apoyo a José Cutire Huayta">
             <input type="hidden" name="currency_code" value="USD">
+            <input type="number" name="amount" min="1" step="0.01" placeholder="Monto a donar USD" class="campo" required>
             <button type="submit" class="btn-accion">Ir a PayPal</button>
         </form>
         <br>
@@ -147,15 +216,24 @@
     </div>
 </div>
 
+<div class="ventana-foto" id="ventanaFoto" onclick="this.classList.remove('activa')">
+    <div class="cuadro-foto" onclick="event.stopPropagation()">
+        <h3>Vista Ampliada</h3>
+        <img id="fotoGrande" src="" alt="Imagen ampliada">
+        <br>
+        <button class="cerrar" onclick="document.getElementById('ventanaFoto').classList.remove('activa')">Cerrar</button>
+    </div>
+</div>
+
 <div class="btn-chat" onclick="abrirChat()">💬</div>
 <div class="ventana-chat" id="chat">
     <div class="cab-chat">
-        <span>Consulta Rápida</span>
-        <button class="cerrar" onclick="abrirChat()">×</button>
+        <span>👤 José Virtual</span>
+        <button class="cerrar-chat" onclick="abrirChat()">×</button>
     </div>
     <div class="caja-msj" id="msjs"></div>
     <div class="escribir">
-        <input type="text" id="texto" placeholder="Escribe tu mensaje..." onkeydown="if(event.key==='Enter')enviar()">
+        <input type="text" id="texto" placeholder="Escribe aquí tu mensaje..." onkeydown="if(event.key==='Enter')enviar()">
         <button onclick="enviar()">Enviar</button>
     </div>
 </div>
@@ -163,19 +241,59 @@
 <script>
 window.addEventListener('load', ()=>setTimeout(()=>document.getElementById('carga').classList.add('oculto'),1200));
 
-if ('serviceWorker' in navigator) window.addEventListener('load', ()=>navigator.serviceWorker.register('sw.js'));
-let instalar;
-window.addEventListener('beforeinstallprompt', e=>{e.preventDefault();instalar=e;document.getElementById('btnApp').style.display='inline-block';});
-document.getElementById('btnApp')?.addEventListener('click',async()=>{if(!instalar)return;instalar.prompt();});
+// ✅ RUTA FINAL: CARPETA "jc" EN MINÚSCULAS
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://radiosunidas.github.io/jc/sw.js', {scope: 'https://radiosunidas.github.io/jc/'})
+        .then(reg => console.log('✅ SW registrado en carpeta /jc/'))
+        .catch(err => console.log('❌ Error SW:', err));
+    });
+}
+
+let instalarPWA;
+window.addEventListener('beforeinstallprompt', e=>{
+    e.preventDefault();
+    instalarPWA = e;
+    setTimeout(()=>{
+        document.getElementById('pwa-banner').classList.add('activo');
+        document.getElementById('btnApp').style.display='inline-block';
+    }, 1500);
+});
+
+document.getElementById('btnInstalar')?.addEventListener('click', async ()=>{
+    if(!instalarPWA) return;
+    instalarPWA.prompt();
+    const resultado = await instalarPWA.userChoice;
+    if(resultado.outcome === 'accepted'){
+        document.getElementById('pwa-banner').classList.remove('activo');
+    }
+    instalarPWA = null;
+});
+
+document.getElementById('btnApp')?.addEventListener('click', ()=>{
+    document.getElementById('pwa-banner').classList.add('activo');
+});
+
+function verFoto(url){
+    document.getElementById('fotoGrande').src = url;
+    document.getElementById('ventanaFoto').classList.add('activa');
+}
 
 let cont=0,hist="Consulta desde tu perfil:\n";
+const respuestas = [
+    "¡Hola! Soy Asistente de Jose 😊 Cuéntame cual es tu nombre y en qué te puedo ayudar.",
+    "¡Muy bien! Cuéntame más detalles, qué necesitas o qué te gustaría consultar.",
+    "✅ Perfecto. Al enviar un mensaje más, todo llegará directo al WhatsApp de José para atenderte personalmente."
+];
+
 function abrirChat(){
     document.getElementById('chat').classList.toggle('activa');
     if(!cont){
-        agregar("¡Hola! Escribe tu nombre y lo que necesites, con gusto te ayudo.","sistema");
+        agregar(respuestas[0],"asistente");
         cont++;
     }
 }
+
 function agregar(texto,tipo){
     const d=document.createElement('div');
     d.className='mensaje '+tipo;
@@ -183,25 +301,28 @@ function agregar(texto,tipo){
     document.getElementById('msjs').appendChild(d);
     document.getElementById('msjs').scrollTop=document.getElementById('msjs').scrollHeight;
 }
+
 function enviar(){
     const m=document.getElementById('texto').value.trim();
     if(!m) return;
     agregar(m,"mio");
     hist+=m+"\n";
     document.getElementById('texto').value="";
-    if(cont >= 3){
-        setTimeout(()=>{
-            agregar("✅ Enviando todo a tu WhatsApp...","sistema");
+
+    setTimeout(()=>{
+        if(cont < respuestas.length){
+            agregar(respuestas[cont],"asistente");
+            cont++;
+        }else{
+            agregar("✅ Enviando todo a WhatsApp...","asistente");
             setTimeout(()=>{
                 window.open("https://wa.me/51930282895?text="+encodeURIComponent(hist),"_blank");
                 abrirChat();
                 cont=0;
                 hist="Consulta desde tu perfil:\n";
             },1200);
-        },500);
-    }else{
-        cont++;
-    }
+        }
+    },700);
 }
 </script>
 </body>
