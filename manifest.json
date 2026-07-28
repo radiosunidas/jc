@@ -7,7 +7,7 @@
   "theme_color": "#1a1a2e",
   "icons": [
     {
-      "src": "https://radiosunidas.github.io/eco/img/logo-192.png",
+      "src": "imagen/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     }
